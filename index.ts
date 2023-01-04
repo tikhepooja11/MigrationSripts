@@ -48,7 +48,11 @@ MongoClient.connect(config.mongo.url)
 
     if (aggCursor) {
       await aggCursor.forEach((item) => {
-        const refArray: referencesArray[] = [
+        const refArray: referencesArray[] = item.references ? item.references.push({
+            id: item.result.reference.id,
+            referenceType: item.result.reference.type,
+            primaryAttachedSource: true,
+          }) : [
           {
             id: item.result.reference.id,
             referenceType: item.result.reference.type,
